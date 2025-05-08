@@ -1,0 +1,58 @@
+:root {
+    /* Макет
+	Глобальный корректор значений */
+    --c: 1;
+    /* Ограничение ширины страницы */
+    --page-width: unset;
+    /* Отступ контента */
+    --content-indents: calc(48px * var(--c));
+    /* Количество колонок */
+    --grid-columns: 12;
+    /* Отступы контента от края экрана */
+    --grid-sides: calc(32px * var(--c));
+    /* Отступы между колонками и по бокам секций */
+    --grid-gutter: calc(16px * var(--c));
+    /* Подсчет размера колонок */
+    --grid-column-width: calc(
+        (100vw - var(--grid-gutter) * var(--grid-columns)) / var(--grid-columns)
+    );
+    /* Отступы сверху/снизу секций */
+    --section-padding: var(--grid-gutter);
+    /* Отступы между секций */
+    --section-gap: calc(var(--grid-gutter) * 4);
+    /* Ограничение ширины контента */
+    --content-width: calc(
+        100% + var(--grid-gutter) - ((var(--grid-gutter) + var(--grid-column-width)) * 4)
+    ); /* Ширина контента -2 колонки
+	--content-width: unset; Нефиксированный размер контента */
+}
+/* Адаптивность */
+@custom-media --lg (max-width: 1200px);
+@custom-media --md (max-width: 852px);
+@custom-media --sm (max-width: 520px);
+
+:root {
+    @media (--lg) {
+        --grid-columns: 8;
+        --content-width: calc(
+            100% + var(--grid-gutter) - ((var(--grid-gutter) + var(--grid-column-width)) * 2)
+        );
+    }
+    @media (--md) {
+        --grid-columns: 6;
+        --c: 0.85;
+        --content-width: 100%;
+    }
+    @media (--sm) {
+        --c: 0.7;
+        --grid-columns: 4;
+    }
+}
+
+body {
+    &.not-webp {
+        picture > source[type*='webp'] {
+            display: none;
+        }
+    }
+}
